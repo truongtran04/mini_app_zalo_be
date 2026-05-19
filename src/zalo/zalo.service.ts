@@ -26,17 +26,15 @@ export class ZaloService {
     const data = (await res.json()) as {
       error: number;
       message?: string;
-      phone?: string; // ← ở endpoint này phone nằm trực tiếp
-      name?: string;
-      id?: string;
+      data?: { number?: string };
     };
 
-    if (data.error !== 0 || !data.phone) {
+    if (data.error !== 0 || !data.data?.number) {
       throw new BadRequestException(
         `Zalo API lỗi: ${data.message ?? 'Không giải mã được SĐT'}`,
       );
     }
 
-    return data.phone;
+    return data.data.number;
   }
 }
