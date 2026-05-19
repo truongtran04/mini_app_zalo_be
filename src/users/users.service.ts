@@ -16,6 +16,16 @@ export class UsersService {
     return this.usersRepository.create(dto);
   }
 
+  async createOrUpdate(dto: { name?: string; phone: string }) {
+    const existing = await this.usersRepository.findByPhone(dto.phone);
+
+    if (existing) {
+      return existing;
+    }
+
+    return this.usersRepository.create(dto);
+  }
+
   async findAll() {
     return this.usersRepository.findAll();
   }

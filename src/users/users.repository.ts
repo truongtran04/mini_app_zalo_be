@@ -25,4 +25,12 @@ export class UsersRepository {
       where: { id },
     });
   }
+
+  async upsert(data: { name?: string; phone: string }): Promise<User> {
+    return this.prisma.user.upsert({
+      where: { phone: data.phone },
+      update: { name: data.name },
+      create: data,
+    });
+  }
 }
