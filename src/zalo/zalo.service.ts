@@ -5,16 +5,14 @@ import { ConfigService } from '@nestjs/config';
 export class ZaloService {
   constructor(private config: ConfigService) {}
 
-  async decodePhoneToken(token: string): Promise<string> {
-    const appId = this.config.get<string>('ZALO_APP_ID');
-    const secretKey = this.config.get<string>('ZALO_APP_SECRET');
+  async decodePhoneToken(phoneToken: string, accessToken: string): Promise<string> {
+    const secretKey = this.config.get<string>('ZALO_APP_SECRET') ?? '';
 
-    const res = await fetch('https://graph.zalo.me/v2.0/me/info', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        app_id: appId,
-        access_token: token,
+    const res = await fetch('https://graph.zalo.me/v2.0/me/phone', {
+      method: 'GET',
+      headers: new Headers({
+        access_token: accessToken,
+        code: phoneToken,
         secret_key: secretKey,
       }),
     });

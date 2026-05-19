@@ -18,10 +18,10 @@ export class UsersController {
 
   @Post('zalo')
   async createFromZalo(@Body() dto: CreateZaloUserDto) {
-    // 1. Giải mã token → SĐT thật
-    const phone = await this.zaloService.decodePhoneToken(dto.token);
-
-    // 2. Upsert user (tạo mới hoặc cập nhật tên nếu đã có SĐT)
+    const phone = await this.zaloService.decodePhoneToken(
+      dto.token,
+      dto.accessToken,
+    );
     return this.usersService.createOrUpdate({ name: dto.name, phone });
   }
 }

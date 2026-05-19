@@ -8,5 +8,9 @@ export class CreateZaloUserDto {
 
   @IsString()
   @IsNotEmpty()
-  token: string; // phone token từ Zalo Mini App
+  token: string; // phone token
+
+  @IsString()
+  @IsNotEmpty()
+  accessToken: string; // user access token
 }
