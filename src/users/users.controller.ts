@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/users.dto';
-import { ZaloService } from 'src/zalo/zalo.service';
+import { ZaloService } from '../zalo/zalo.service';
 import { CreateZaloUserDto } from './dto/create-zalo-user.dto';
 
 @Controller('users')
